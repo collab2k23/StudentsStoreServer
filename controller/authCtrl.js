@@ -4,18 +4,21 @@ const Address = require('../models/address.model')
 const Seller = require('../models/seller.model')
 const Buyer = require('../models/buyer.model')
 const bcrypt = require('bcrypt')
-const jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken')
+const { validationResult } = require('express-validator')
 
 let Register = async( req, res )=>{
     try{
+        const errors = validationResult(req)
+        if(!errors.isEmpty()) return res.status(200).send({ status:'error', msg: 'Invalid Email'})
         const { firstName,lastName,username,password,email,phoneno,address,city,pincode,district,state } = req.body
         console.log(req.body)
         let user = await User.findOne({ email })
-        if( user ) return res.status(200).send({ status:'error', msg: 'email already in use'})
+        if( user ) return res.status(200).send({ status:'error', msg: 'Email already in use'})
         user = await User.findOne({ username })
-        if( user ) return res.status(200).json({ status:'error', msg: 'username already in use'})
+        if( user ) return res.status(200).json({ status:'error', msg: 'Username already in use'})
         user = await User.findOne({ phoneno })
-        if( user ) return res.status(200).json({ status:'error', msg: 'phoneno already in use'})
+        if( user ) return res.status(200).json({ status:'error', msg: 'Phoneno already in use'})
 
         bcrypt.genSalt(10 , function(err, salt) {
             bcrypt.hash(password, salt, function(err, hash) {
