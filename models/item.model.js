@@ -11,6 +11,12 @@ const itemSchema = new mongoose.Schema({
     description: {
         type: String,
     },
+    attribute:[{
+        type: String,
+    }],
+    val:[{
+        type: String,
+    }],
     price: {
         type: String,
     },
@@ -20,7 +26,12 @@ const itemSchema = new mongoose.Schema({
     address: {
         type: mongoose.Types.ObjectId,
         ref: 'address'
-    }    
+    },
+    img:[{
+        type: String,
+    }]    
+},{
+    timestamps:true
 })
 
 module.exports = mongoose.model('item', itemSchema)

@@ -13,4 +13,9 @@ const authUser = async (req, res, next) => {
     })
 }
 
-module.exports = { authUser }
+const isUserVerified = async (req, res, next) => {
+    if( !req.user.verified ) return res.status(200).json({ status:'fail', msg:'Login Again' })
+    next()
+}
+
+module.exports = { authUser, isUserVerified }
