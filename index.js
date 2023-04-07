@@ -65,6 +65,6 @@ app.use('/product', productRoutes)
 app.use('/myproducts', myProductsRoutes)
 
 app.post('/upload/profile', authUser, isUserVerified, uploadProfile.single('profile'), profileUpload)
-app.post('/newproduct', authUser, isUserVerified, uploadProduct.array('product', newProduct))
+app.post('/opload/newProduct', authUser, isUserVerified, uploadProduct.array('product'), newProduct)
 
 app.listen(process.env.PORT, () => console.log('Server: ' + process.env.PORT)) 
